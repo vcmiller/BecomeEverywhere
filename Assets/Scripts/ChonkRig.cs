@@ -54,7 +54,7 @@ public class ChonkRig : MonoBehaviour {
         Quaternion q = Quaternion.FromToRotation(oldUp, transform.position);
         stabilizer.rotation = q * lastRotation;
         lastRotation = stabilizer.rotation;
-        sphere.rotation = transform.rotation;
+        sphere.rotation = Quaternion.LookRotation(transform.forward, transform.right);
 
         Vector3 up = transform.position;
         if (motor.grounded) {
@@ -67,10 +67,11 @@ public class ChonkRig : MonoBehaviour {
 
     private void UpdateSquashAmount() {
         float targetSquash = 1;
+        float velY = Vector3.Dot(motor.rb.velocity, transform.position.normalized);
         if (motor.grounded) {
             targetSquash = squashCurve.Evaluate(Time.time - motor.groundHitTime);
-        } else if (motor.rb.velocity.y < 0) {
-            targetSquash = 1 + airVelStretchFactor * Mathf.Abs(motor.rb.velocity.y);
+        } else if (velY < 0) {
+            targetSquash = 1 + airVelStretchFactor * Mathf.Abs(velY) / motor.size;
         }
         squashAmount = Mathf.Lerp(squashAmount, targetSquash, squashSpeed);
 
