@@ -315,7 +315,7 @@ MonoBehaviour:
   bounceSound:
     clips:
     - {fileID: 8300000, guid: ef66c5c714e0fa04db62b1676e38de6c, type: 3}
-    volume: 0.255
+    volume: 0.465
     pitch: 0.6
     spaital: 0
     loop: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
   jumpSound:
     clips:
     - {fileID: 8300000, guid: b031c2a96df0a024fa96d3492574f259, type: 3}
-    volume: 1
+    volume: 0.478
     pitch: 0.7
     spaital: 0
     loop: 0
