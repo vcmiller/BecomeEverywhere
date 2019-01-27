@@ -30,6 +30,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
     public float pitchDownPerLevel = 0.02f;
     public LayerMask ground = 1;
     public AudioParameters bounceSound;
+    public AudioParameters jumpSound;
 
     [Header("HE BIGG")]
     [SerializeField]
@@ -97,6 +98,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
             rb.AddForceAtPosition(dv, transform.position + transform.position.normalized * forceOffset * _size, ForceMode.VelocityChange);
 
             if (channels.jump) {
+                jumpSound.PlayAtPoint(transform.position);
                 Jump();
             }
         }

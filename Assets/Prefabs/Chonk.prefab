@@ -321,6 +321,15 @@ MonoBehaviour:
     loop: 0
     playCooldown: 0.2
     cooldownId: 
+  jumpSound:
+    clips:
+    - {fileID: 8300000, guid: b031c2a96df0a024fa96d3492574f259, type: 3}
+    volume: 1
+    pitch: 0.7
+    spaital: 0
+    loop: 0
+    playCooldown: 0
+    cooldownId: 
   _size: 1
 --- !u!114 &1708705343188499736
 MonoBehaviour:
