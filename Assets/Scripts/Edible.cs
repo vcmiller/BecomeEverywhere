@@ -2,7 +2,7 @@
 
 public class Edible : MonoBehaviour {
     private ParticleSystem ps;
-    public float sizeRequired = 1;
+    public int levelRequired = 0;
     public float sizeGained = 1;
     public float particleDuration = 5;
 
