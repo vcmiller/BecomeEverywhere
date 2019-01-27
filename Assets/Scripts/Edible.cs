@@ -18,7 +18,7 @@ public class Edible : MonoBehaviour {
         Eater.LevelUp -= UpdateLevel;
     }
 
-    void UpdateLevel(int level) {
+    public void UpdateLevel(int level) {
         if (level >= levelRequired) {
             col.isTrigger = true;
         }
