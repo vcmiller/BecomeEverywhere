@@ -11,12 +11,11 @@ public class Edible : MonoBehaviour {
     void Start() {
         ps = GetComponentInChildren<ParticleSystem>();
         col = GetComponent<Collider>();
-        Eater.inst.LevelUp += UpdateLevel;
-        UpdateLevel(Eater.inst.curLevel);
+        Eater.LevelUp += UpdateLevel;
     }
 
     private void OnDestroy() {
-        Eater.inst.LevelUp -= UpdateLevel;
+        Eater.LevelUp -= UpdateLevel;
     }
 
     void UpdateLevel(int level) {

@@ -20,9 +20,7 @@ public class Eater : MonoBehaviour {
     public AudioParameters eatSound;
     public AudioParameters levelUpSound;
 
-    public static Eater inst;
-
-    public event Action<int> LevelUp;
+    public static event Action<int> LevelUp;
     
     [System.Serializable]
     public struct Level {
@@ -33,10 +31,6 @@ public class Eater : MonoBehaviour {
     [System.Serializable]
     public class LevelList : DraggableList<Level> { }
 
-    private void Awake() {
-        inst = this;
-    }
-
     // Start is called before the first frame update
     void Start() {
         motor = GetComponentInParent<ChonkMotor>();
@@ -44,6 +38,10 @@ public class Eater : MonoBehaviour {
         eaten = levels[curLevel].threshold;
         hitSlowTimer = new ExpirationTimer(hitSlowDuration);
         hitSlowTimer.unscaled = true;
+
+        if (curLevel > 0) {
+            LevelUp?.Invoke(curLevel);
+        }
     }
 
     private void Update() {
