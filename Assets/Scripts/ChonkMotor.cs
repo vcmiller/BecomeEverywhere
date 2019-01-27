@@ -6,6 +6,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
     public Rigidbody rb { get; private set; }
     public Rigidbody[] rbs { get; private set; }
     public HingeJoint[] joints { get; private set; }
+    public Eater eater { get; private set; }
 
     public SphereCollider sc { get; private set; }
 
@@ -18,6 +19,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
     private EdiblePlanet planet;
 
     private float mass;
+    private float startBouncePitch;
 
     public float forceOffset = 1;
     public float acceleration;
@@ -25,7 +27,9 @@ public class ChonkMotor : Motor<CharacterChannels> {
     public float jumpSpeed;
     public float groundCheck = 0.1f;
     public float gravity = 20;
+    public float pitchDownPerLevel = 0.02f;
     public LayerMask ground = 1;
+    public AudioParameters bounceSound;
 
     [Header("HE BIGG")]
     [SerializeField]
@@ -44,6 +48,8 @@ public class ChonkMotor : Motor<CharacterChannels> {
                 }
 
                 _size = value;
+
+                bounceSound.pitch = startBouncePitch - eater.curLevel * pitchDownPerLevel;
             }
         }
     }
@@ -54,11 +60,13 @@ public class ChonkMotor : Motor<CharacterChannels> {
         sc = GetComponent<SphereCollider>();
         rbs = GetComponentsInChildren<Rigidbody>();
         joints = GetComponentsInChildren<HingeJoint>();
+        eater = GetComponent<Eater>();
         anchors = joints.Select(j => (j.anchor, j.connectedAnchor, j.transform.localRotation)).ToArray();
         foreach (var r in rbs) {
             r.useGravity = false;
         }
         mass = rb.mass;
+        startBouncePitch = bounceSound.pitch;
         planet = FindObjectOfType<EdiblePlanet>();
     }
 
@@ -105,6 +113,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
         grounded = Physics.SphereCast(new Ray(transform.position + up * groundCheck * _size, -up), radius, out _groundHit, groundCheck * 2 * _size, ground);
         if (grounded && !wasGrounded) {
             groundHitTime = Time.time;
+            bounceSound.PlayAtPoint(transform.position);
         }
     }
 }
