@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class ChonkMeter : MonoBehaviour {
     public RectTransform levelsParent;
     public RectTransform meter;
+    public Animator anim;
+    public GameObject world;
     public Eater heEats;
 
     private RectTransform[] levels;
@@ -37,5 +39,9 @@ public class ChonkMeter : MonoBehaviour {
         meter.position = p;
 
         levelImages[heEats.curLevel].alpha = 1;
+
+        if (!world) {
+            anim.SetTrigger("GameOver");
+        }
     }
 }

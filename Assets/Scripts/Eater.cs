@@ -46,12 +46,16 @@ public class Eater : MonoBehaviour {
         var edible = other.GetComponent<Edible>();
         if (edible && curLevel >= edible.levelRequired) {
             edible.Eat();
-            eaten += edible.sizeGained;
+            Eat(edible.sizeGained);
+        }
+    }
 
-            if (curLevel < levels.length - 1 && eaten >= levels[curLevel + 1].threshold) {
-                curLevel++;
-                destSize = levels[curLevel].size;
-            }
+    public void Eat(float amount) {
+        eaten += amount;
+
+        if (curLevel < levels.length - 1 && eaten >= levels[curLevel + 1].threshold) {
+            curLevel++;
+            destSize = levels[curLevel].size;
         }
     }
 

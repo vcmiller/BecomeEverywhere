@@ -15,6 +15,7 @@ public class ChonkMotor : Motor<CharacterChannels> {
     public float groundHitTime { get; private set; }
     public RaycastHit groundHit => _groundHit;
     private RaycastHit _groundHit;
+    private EdiblePlanet planet;
 
     private float mass;
 
@@ -58,12 +59,15 @@ public class ChonkMotor : Motor<CharacterChannels> {
             r.useGravity = false;
         }
         mass = rb.mass;
+        planet = FindObjectOfType<EdiblePlanet>();
     }
 
     private void FixedUpdate() {
-        float grav = Mathf.Sqrt(size);
-        foreach (var r in rbs) {
-            r.AddForce(-transform.position.normalized * gravity * grav, ForceMode.Acceleration);
+        if (planet) {
+            float grav = Mathf.Sqrt(size);
+            foreach (var r in rbs) {
+                r.AddForce(-transform.position.normalized * gravity * grav, ForceMode.Acceleration);
+            }
         }
     }
 

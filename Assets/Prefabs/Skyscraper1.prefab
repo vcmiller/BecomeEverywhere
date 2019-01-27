@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelRequired: 6
-  sizeGained: 30
+  sizeGained: 100
   particleDuration: 3
 --- !u!1 &5575837530961719965
 GameObject:

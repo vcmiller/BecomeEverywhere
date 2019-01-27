@@ -5,7 +5,7 @@ public class Edible : MonoBehaviour {
     public int levelRequired = 0;
     public float sizeGained = 1;
     public float particleDuration = 5;
-
+    
     // Start is called before the first frame update
     void Start() {
         ps = GetComponentInChildren<ParticleSystem>();
