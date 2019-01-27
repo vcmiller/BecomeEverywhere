@@ -6,7 +6,7 @@ using UnityEngine;
 public class Eater : MonoBehaviour {
     private ChonkMotor motor;
     private float destSize;
-    private float eaten;
+    public float eaten { get; private set; }
     public float growSpeed = 1;
 
     public int curLevel = 0;
@@ -30,6 +30,16 @@ public class Eater : MonoBehaviour {
 
     private void Update() {
         motor.size = Mathf.MoveTowards(motor.size, destSize, Time.deltaTime * growSpeed * motor.size);
+    }
+
+    public float GetNextLevelProgress() {
+        if (curLevel == levels.length - 1) {
+            return 0;
+        }
+
+        float f = eaten - levels[curLevel].threshold;
+        float needed = levels[curLevel + 1].threshold - levels[curLevel].threshold;
+        return f / needed;
     }
 
     private void OnTriggerEnter(Collider other) {

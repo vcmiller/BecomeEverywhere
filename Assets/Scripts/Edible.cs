@@ -11,10 +11,10 @@ public class Edible : MonoBehaviour {
         ps = GetComponentInChildren<ParticleSystem>();
     }
 
-    public void Eat() {
+    public virtual void Eat() {
         ps.transform.parent = null;
         ps.Play();
-        Destroy(ps, particleDuration);
+        Destroy(ps.gameObject, particleDuration);
         Destroy(gameObject);
     }
 }

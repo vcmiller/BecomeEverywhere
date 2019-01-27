@@ -85,9 +85,13 @@ public class ChonkMotor : Motor<CharacterChannels> {
             rb.AddForceAtPosition(dv, transform.position + transform.position.normalized * forceOffset * _size, ForceMode.VelocityChange);
 
             if (channels.jump) {
-                rb.AddForce(transform.position.normalized * jumpSpeed * Mathf.Sqrt(size), ForceMode.Impulse);
+                Jump();
             }
         }
+    }
+
+    public void Jump() {
+        rb.AddForce(transform.position.normalized * jumpSpeed * Mathf.Sqrt(size), ForceMode.Impulse);
     }
 
     private void UpdateGrounded() {
